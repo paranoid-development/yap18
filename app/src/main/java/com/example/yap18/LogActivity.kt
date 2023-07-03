@@ -3,6 +3,7 @@ package com.example.yap18
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 
 open class LogActivity : AppCompatActivity() {
@@ -12,6 +13,13 @@ open class LogActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     Log.d(tag, "$name ${Thread.currentThread().stackTrace[2].methodName}")
     super.onCreate(savedInstanceState)
+
+    onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+      override fun handleOnBackPressed() {
+        Log.d(tag, "$name ${Thread.currentThread().stackTrace[2].methodName}")
+        finish()
+      }
+    })
   }
 
   override fun onDestroy() {
